@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Библиотека колледжа</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f3f4f6; margin: 0; padding: 0; }
+    header { background: #3b5998; color: white; text-align: center; padding: 35px 20px 70px 20px; }
+    header h1 { margin: 0 0 10px 0; font-size: 24px; font-weight: 600; }
+    header p { margin: 0; font-size: 14px; opacity: 0.9; }
+    .container { max-width: 950px; margin: -45px auto 40px auto; background: white; border-radius: 8px; padding: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    h2 { font-size: 18px; margin: 0 0 20px 0; color: #1f2937; }
+    .search-box { width: 100%; box-sizing: border-box; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; margin-bottom: 25px; outline: none; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    th { padding: 12px 10px; color: #4b5563; font-weight: 600; border-bottom: 2px solid #e5e7eb; }
+    td { padding: 14px 10px; border-bottom: 1px solid #f3f4f6; vertical-align: middle; }
+    .book-title { font-weight: bold; color: #111827; }
+    .badge { padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; display: inline-block; }
+    .badge-in { background: #dcfce7; color: #15803d; }
+    .badge-out { background: #ffedd5; color: #c2410c; }
+    .badge-res { background: #e0f2fe; color: #0369a1; }
+    .btn { padding: 6px 16px; border: none; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: 500; }
+    .btn-take { background: #2563eb; color: white; }
+    .btn-disabled { background: #9ca3af; color: white; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Автоматизированная система библиотеки колледжа</h1>
+    <p>Вариант 2 — Контроль и учет библиотечного фонда</p>
+  </header>
+  <div class="container">
+    <h2>Электронный каталог (Синхронизация с MS Access)</h2>
+    <input type="text" id="searchInput" class="search-box" placeholder="Поиск книг по названию, автору или ISBN..." onkeyup="filterBooks()">
+    <table id="booksTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Название книги</th>
+          <th>Автор</th>
+          <th>ISBN (Штрих-код)</th>
+          <th>Статус фонда</th>
+          <th>Действие</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td class="book-title">Чистый код</td>
+          <td>Роберт Мартин</td>
+          <td>978-5-4461-0952-4</td>
+          <td><span class="badge badge-in">В наличии</span></td>
+          <td><button class="btn btn-take" onclick="bookTake()">Взять</button></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="book-title">Грокаем алгоритмы</td>
+          <td>Адитья Бхаргава</td>
+          <td>978-5-4461-0923-4</td>
+          <td><span class="badge badge-out">Выдана читателю</span></td>
+          <td><button class="btn btn-disabled">Недоступно</button></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="book-title">Совершенный код</td>
+          <td>Стив Макконнелл</td>
+          <td>978-5-7502-0064-1</td>
+          <td><span class="badge badge-in">В наличии</span></td>
+          <td><button class="btn btn-take" onclick="bookTake()">Взять</button></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td class="book-title">Изучаем Python</td>
+          <td>Марк Лутц</td>
+          <td>978-5-9518-0515-7</td>
+          <td><span class="badge badge-in">В наличии</span></td>
+          <td><button class="btn btn-take" onclick="bookTake()">Взять</button></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td class="book-title">Паттерны проектирования</td>
+          <td>Эрик Фримен</td>
+          <td>978-5-4461-0106-1</td>
+          <td><span class="badge badge-res">Забронирована</span></td>
+          <td><button class="btn btn-disabled">Ожидание</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    function bookTake() {
+      alert("Книга забронирована!");
+    }
+    function filterBooks() {
+      let input = document.getElementById("searchInput").value.toLowerCase();
+      let rows = document.querySelectorAll("#booksTable tbody tr");
+      rows.forEach(row => {
+        let text = row.innerText.toLowerCase();
+        row.style.display = text.includes(input) ? "" : "none";
+      });
+    }
+  </script>
+</body>
+</html>
